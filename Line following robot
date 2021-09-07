@@ -1,0 +1,111 @@
+int sensor1= 0;
+int sensor2= 0;
+int sensor3= 0;
+int in1= 2;
+int in2= 3;
+int in3= 4;
+int in4= 5;
+int sp2= 9;
+int sp3= 10;
+
+//analog pin 0
+
+void setup(){
+
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+  pinMode(sp2, OUTPUT);
+  pinMode(sp3, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop(){
+  //Read sensors value
+  int sensor1 = analogRead(A1);
+  Serial.println(sensor1);
+  int sensor2 = analogRead(A2);
+  Serial.println(sensor2);
+  int sensor3 = analogRead(A3);
+  Serial.println(sensor3);
+
+
+  //Turn Left (righ wheel on) when sensor 1 is black and sensor 2, 3 is white
+  if(sensor2<100 && sensor3<100 && sensor1>100){
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, LOW);
+    analogWrite(sp2, 110);
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+    analogWrite(sp3, 110);
+     
+  
+  }
+  // sharp turn (right on forward and left on backwards) when sensor 1, 2 is black and 3 is white
+  else if ( sensor3<300 && sensor1>300 && sensor2>300){
+    
+ 
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+    analogWrite(sp2, 110);
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+    analogWrite(sp3, 110);
+    
+   
+  }
+ 
+  //Turn right (left wheel on) when sensor 3 is black and sensor 1, 2 is white
+  else if (sensor3>100 && sensor1<100 && sensor2<100){
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+    analogWrite(sp2, 110);
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, LOW);
+    analogWrite(sp3, 110);
+    
+   
+  }
+  // sharp turn (right on backwards and left on forward) when sensor 3, 2 is black and 1 is white
+  else if ( sensor3>600 && sensor1<600 && sensor2>600){
+    
+ 
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+    analogWrite(sp2, 110);
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+    analogWrite(sp3, 110);
+    
+   
+  }
+  // sharp turn (left on backwards and right on forward) when sensor 3, 2, 1 is white
+  else if( sensor3<500 && sensor1<500 && sensor2<500){
+    
+ 
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+    analogWrite(sp2, 110);
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+    analogWrite(sp3, 110);
+    
+   
+  }
+  
+  
+else{
+
+    //FORWARD
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+    analogWrite(sp2, 110);
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+    analogWrite(sp3, 110);
+    
+
+  }
+
+}
